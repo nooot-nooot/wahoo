@@ -4,7 +4,7 @@ public class Location{
     public String name;
     private boolean space = true;
     ArrayList<Location> connections = new ArrayList<Location>();
-    ArrayList<PowerUp> powerUps = new ArrayList<PowerUp>();
+    ArrayList<Item> items = new ArrayList<Item>();
     // ArrayList<int>
 
     /*
@@ -14,6 +14,9 @@ public class Location{
       }
     }
     */
+
+
+
 
     public void printConnections(){
         System.out.println(name + " is connected to:");
@@ -39,8 +42,6 @@ public class Location{
         return name;
     }
     public Location(String nameVar){
-        name = nameVar;
-        numGoomba =
 
 
     }

@@ -5,5 +5,6 @@ class Main {
     //make an enemy class
     public static void main(String[] args) {
         Game game = new Game();
+        game.start();
     }
 }

@@ -1,6 +1,5 @@
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.*;
 
 public class Map {
     public static int getRandomInteger(int lower, int upper) {
@@ -33,12 +32,12 @@ public class Map {
     Location Bubblaine = new Location("Bubblaine");
     Location Bonneton = new Location("Bonneton");
     //initalizing all power ups
-    PowerUp bobomb = new PowerUp("bobomb", 2, 3, 1);
-    PowerUp greenShell = new PowerUp("greenShell", 1, 4, 2);
-    PowerUp blueShell = new PowerUp("blueShell", 5, 5, 2);
+    Item bobomb = new Item("bobomb", 2, 3, 1);
+    Item greenShell = new Item("greenShell", 1, 4, 2);
+    Item blueShell = new Item("blueShell", 5, 5, 2);
 
     //powerup array to pick random one from
-    ArrayList<PowerUp> powerUps = new ArrayList<PowerUp>();
+    ArrayList<Item> items = new ArrayList<Item>();
     // inital list of random locations
     // sorted later
     ArrayList<Location> locations = new ArrayList<Location>();
@@ -88,14 +87,13 @@ actually its pretty bad since the map looks pretty similar each time
             currentIteration.add(locations.indexOf(conectee));
             avilableLocations.remove(avilableLocations.indexOf(locations.indexOf(conectee)));
         }
-    /*
-    testing stuff
+
     l.printConnections();
     for (int i : avilableLocations) {
       System.out.print(i + " ");
     }
     System.out.println();
-    */
+
     }
 
 
@@ -114,9 +112,9 @@ actually its pretty bad since the map looks pretty similar each time
         }
         //powerUps array
 
-        powerUps.add(bobomb);
-        powerUps.add(blueShell);
-        powerUps.add(greenShell);
+        items.add(bobomb);
+        items.add(blueShell);
+        items.add(greenShell);
 
 
 
