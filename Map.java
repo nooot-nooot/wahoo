@@ -47,6 +47,7 @@ public class Map {
 
     // used to keep track of which locations are next
     ArrayList<Integer> currentIteration = new ArrayList<Integer>();
+    //yep
 
     // what locations can be connected to
     ArrayList<Integer> avilableLocations = new ArrayList<Integer>();
