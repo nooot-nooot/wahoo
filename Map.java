@@ -33,10 +33,9 @@ public class Map {
     Location Bubblaine = new Location("Bubblaine");
     Location Bonneton = new Location("Bonneton");
     //initalizing all power ups
-    PowerUp redShell = new PowerUp("redShell", 1, 6, 1);
     PowerUp bobomb = new PowerUp("bobomb", 2, 3, 1);
-    PowerUp blueShell = new PowerUp("blueShell", 1, 4, 2);
-    PowerUp superStar = new PowerUp("superStar", 5, 5, 2);
+    PowerUp greenShell = new PowerUp("greenShell", 1, 4, 2);
+    PowerUp blueShell = new PowerUp("blueShell", 5, 5, 2);
 
     //powerup array to pick random one from
     ArrayList<PowerUp> powerUps = new ArrayList<PowerUp>();
@@ -57,6 +56,7 @@ public class Map {
 function to connect everything
 dont like having to check for avilableLocations empty twice
 otherwise not bad
+actually its pretty bad since the map looks pretty similar each time
 */
 
     int x = getRandomInteger(1, 3);
@@ -100,8 +100,10 @@ otherwise not bad
 
 
 
+    public Location getRandomLocation(){
+        return (locations.get(getRandomInteger(0,19)));
 
-
+    }
     public void shuffleLocations() {
         Collections.shuffle(locations);
     }
@@ -111,10 +113,10 @@ otherwise not bad
             avilableLocations.add(i);
         }
         //powerUps array
-        powerUps.add(redShell);
+
         powerUps.add(bobomb);
         powerUps.add(blueShell);
-        powerUps.add(superStar);
+        powerUps.add(greenShell);
 
 
 

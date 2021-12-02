@@ -1,6 +1,6 @@
 import java.util.ArrayList;
 public class Location{
-    private int numGoomba, numKoopa, tier;
+    private int numGoomba, numKoopa;
     public String name;
     private boolean space = true;
     ArrayList<Location> connections = new ArrayList<Location>();
@@ -14,9 +14,6 @@ public class Location{
       }
     }
     */
-    public void setTier(int tierNum){
-        tier = tierNum;
-    }
 
     public void printConnections(){
         System.out.println(name + " is connected to:");
@@ -43,6 +40,8 @@ public class Location{
     }
     public Location(String nameVar){
         name = nameVar;
+        numGoomba =
+
 
     }
 
