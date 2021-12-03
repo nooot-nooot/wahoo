@@ -53,7 +53,7 @@ public class Game {
 
     }
     public void enemyTurn(){
-        mario.getCurrentLocation().setPresence(true);
+        (mario.getCurrentLocation()).setPresence(true);
         for (int i = 0; i < mario.getCurrentLocation().getNumEnemies(); i++){
             if(getRandomInteger(0,10) <= 8){
                 mario.wound();
