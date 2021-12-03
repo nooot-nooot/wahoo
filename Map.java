@@ -1,5 +1,8 @@
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashSet;
+import java.util.*;
+
 
 public class Map {
     public static int getRandomInteger(int lower, int upper) {
@@ -35,8 +38,10 @@ public class Map {
     Item bobomb = new Item("bobomb", 2, 3, 1);
     Item greenShell = new Item("greenShell", 1, 4, 2);
     Item blueShell = new Item("blueShell", 5, 5, 2);
+    //spawns set
+    Set<Location> spawns = new HashSet();
 
-    //powerup array to pick random one from
+    //item array to pick random one from
     ArrayList<Item> items = new ArrayList<Item>();
     // inital list of random locations
     // sorted later
@@ -49,8 +54,12 @@ public class Map {
 
     // what locations can be connected to
     ArrayList<Integer> avilableLocations = new ArrayList<Integer>();
+    public void setSpawns(){
+        for (int i = 0; i < 3; i++){
+            spawns.add(getRandomLocation());
+        }
 
-
+    }
 /*
 function to connect everything
 dont like having to check for avilableLocations empty twice
@@ -87,12 +96,14 @@ actually its pretty bad since the map looks pretty similar each time
             currentIteration.add(locations.indexOf(conectee));
             avilableLocations.remove(avilableLocations.indexOf(locations.indexOf(conectee)));
         }
-
+    /*
     l.printConnections();
     for (int i : avilableLocations) {
       System.out.print(i + " ");
     }
     System.out.println();
+    */
+
 
     }
 
