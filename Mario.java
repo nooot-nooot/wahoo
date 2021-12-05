@@ -4,12 +4,15 @@ public class Mario{
     Item currentItem = new Item("redShell", 1, 6, 1);
     PowerUp currentPowerUp = new PowerUp("null");
     Location currentLocation;
-    int action,numWounds;
+    int action, lives = 3;
     public Mario(){
 
     }
+    public int getLives(){
+        return lives;
+    }
     public void wound(){
-        numWounds++;
+        lives--;
     }
     public void move(){
         currentLocation.printConnections();

@@ -4,6 +4,7 @@ public class Game {
     Map map = new Map();
     Mario mario = new Mario();
     int action;
+
     public int getSelection()
     {
         Scanner input = new Scanner(System.in);
@@ -25,35 +26,73 @@ public class Game {
     public void start(){
         map.setSpawns();
         for(Location l : map.spawns){
+            System.out.println("spawn:" +l.getName());
             l.spawn();
         }
         mario.setCurrentLocation(map.getRandomLocation());
-        System.out.println("You are at " + (mario.getCurrentLocation()).getName());
-        (mario.getCurrentLocation()).printConnections();
+        /*
+        for (Location l : map.locations){
+            System.out.println(l.getName() + " is connected to:");
+            for (Location j : l.connections){
+                System.out.println(j.getName());
+
+            }
+            System.out.println("------------");
+        }
         for (Location l : map.locations){
             System.out.println(l.getName() + " has this many enemies" +l.getNumEnemies());
         }
-        marioTurn();
-        enemyTurn();
+
+         */
+
+
+
+        /*
         for (Location l : map.locations){
             System.out.println(l.getName() + " has this many enemies" +l.getNumEnemies());
         }
+
+         */
+
+
 
 
     }
+    public void mainGame(){
+        while (true) {
+            marioTurn();
+            enemyTurn();
+            if (mario.getLives() <= 0){
+                gameOver();
+                return;
+            }
+        }
+
+    }
     public void marioTurn(){
+        //true = false input, move to false if turn is over/valid input
+        boolean state = true;
         System.out.println("-----------------");
-        System.out.println("You are at " + mario.getCurrentLocation().getName());
-        System.out.println("What would you like to do?");
-        System.out.println("1:Move \n2:Search \n3:Use item\n4:Attack");
-        action = getSelection();
-        if (action == 1){
-            mario.move();
+        while(state) {
+            System.out.println("You are at " + mario.getCurrentLocation().getName() + " and have " + mario.getLives() + " lives");
+            System.out.println("What would you like to do?");
+            System.out.println("1:Move \n2:Search \n3:Use item\n4:Attack");
+            action = getSelection();
+            if (action == 1) {
+                if (mario.getCurrentLocation().getNumEnemies() > 0) {
+                    System.out.println("There are enemies around, you can not move");
+                } else {
+                    mario.move();
+                    return;
+                }
+
+            }
         }
 
     }
     public void enemyTurn(){
         (mario.getCurrentLocation()).setPresence(true);
+        System.out.println("mario is at " + mario.getCurrentLocation().getName());
         for (int i = 0; i < mario.getCurrentLocation().getNumEnemies(); i++){
             if(getRandomInteger(0,10) <= 8){
                 mario.wound();
@@ -69,5 +108,8 @@ public class Game {
         for(Location l : map.spawns){
             l.spawn();
         }
+    }
+    public void gameOver(){
+        System.out.println("Mario has run out of lives! Game Over.");
     }
 }

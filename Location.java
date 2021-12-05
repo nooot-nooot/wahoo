@@ -27,26 +27,42 @@ public class Location{
     }
     public int getDistance(){
         int distance = 0;
-        Set<Location> currentIteration = new HashSet<Location>();
+        ArrayList<Location> currentIteration = new ArrayList<Location>();
         for (Location l : connections){
             distance++;
             if (l.getPresence()) {
                 return distance;
             }
+
             currentIteration.add(l);
 
+
+
         }
+
         int i = 0;
         while (true){
-            Object[] test = currentIteration.toArray();
             distance++;
-            for (Location l : test[i].connections){
+
+
+            for (Location l : currentIteration.get(i).connections){
                 if (l.getPresence()){
+
                     return distance;
+
                 }
-                currentIteration.add(l);
-                i++;
+
+                if (!currentIteration.contains(l)){
+                    currentIteration.add(l);
+
+                }
+
+
+
+
+
             }
+            i++;
         }
 
 
