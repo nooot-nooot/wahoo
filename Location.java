@@ -1,5 +1,8 @@
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashSet;
+import java.util.*;
+
 public class Location{
     private int numGoomba, numKoopa;
     public String name;
@@ -24,7 +27,7 @@ public class Location{
     }
     public int getDistance(){
         int distance = 0;
-        ArrayList<Location> currentIteration = new ArrayList<Location>();
+        Set<Location> currentIteration = new HashSet<Location>();
         for (Location l : connections){
             distance++;
             if (l.getPresence()) {
@@ -35,8 +38,9 @@ public class Location{
         }
         int i = 0;
         while (true){
+            Object[] test = currentIteration.toArray();
             distance++;
-            for (Location l : currentIteration.get(i).connections){
+            for (Location l : test[i].connections){
                 if (l.getPresence()){
                     return distance;
                 }
