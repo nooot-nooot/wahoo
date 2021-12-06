@@ -9,7 +9,8 @@ public class Location{
     private boolean space = true;
     private boolean marioPresence = false;
     ArrayList<Location> connections = new ArrayList<Location>();
-    ArrayList<Item> items = new ArrayList<Item>();
+    Item item = new Item(null, 0, 0, 0);
+    PowerUp powerUp = new PowerUp(null);
 
 
     /*
@@ -19,6 +20,19 @@ public class Location{
       }
     }
     */
+
+    public Item SearchItem(){
+        return item;
+    }
+    public PowerUp SearchPowerUp(int type){
+        return powerUp;
+    }
+    public void addItem(Item i){
+        item = i;
+    }
+    public void addPowerUp(PowerUp p){
+        powerUp = p;
+    }
     public void setPresence(boolean x){
         marioPresence = x;
     }
@@ -123,8 +137,10 @@ public class Location{
     public String getName(){
         return name;
     }
+
     public Location(String nameVar){
         name = nameVar;
+
 
     }
 

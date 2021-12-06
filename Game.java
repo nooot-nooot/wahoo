@@ -70,11 +70,16 @@ public class Game {
 
     }
     public void marioTurn(){
-        //true = false input, move to false if turn is over/valid input
-        boolean state = true;
+
         System.out.println("-----------------");
-        while(state) {
-            System.out.println("You are at " + mario.getCurrentLocation().getName() + " and have " + mario.getLives() + " lives");
+        while(true) {
+            if (mario.getMoves() <= 0){
+                System.out.println("End of turn");
+                return;
+            }
+
+            System.out.println("You are at " + mario.getCurrentLocation().getName());
+            mario.printStats();
             System.out.println("What would you like to do?");
             System.out.println("1:Move \n2:Search \n3:Use item\n4:Attack");
             action = getSelection();
@@ -83,10 +88,11 @@ public class Game {
                     System.out.println("There are enemies around, you can not move");
                 } else {
                     mario.move();
-                    return;
+
                 }
 
             }
+            mario.decreaseMoves();
         }
 
     }

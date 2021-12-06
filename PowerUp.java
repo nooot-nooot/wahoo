@@ -4,6 +4,9 @@ public class PowerUp{
         name = n;
 
     }
+    public String getName(){
+        return name;
+    }
     public void use(){
         if (name.equals("oneUp")){
             //mario.addHealth();
@@ -17,7 +20,7 @@ public class PowerUp{
         else if (name.equals("bulletBill")){
             //mario.move(); idk
         }
-        else if (name.equals("superStar")){
+        else if (name.equals("bobomb")){
             //mario.clearscreen(); idk
         }
 

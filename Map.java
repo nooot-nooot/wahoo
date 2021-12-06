@@ -34,15 +34,25 @@ public class Map {
     Location BowsersCastle = new Location("BowsersCastle");
     Location Bubblaine = new Location("Bubblaine");
     Location Bonneton = new Location("Bonneton");
-    //initalizing all power ups
-    Item bobomb = new Item("bobomb", 2, 3, 1);
-    Item greenShell = new Item("greenShell", 1, 4, 2);
-    Item blueShell = new Item("blueShell", 5, 5, 2);
+    //initalizing all items
+    Item greenShell = new Item("greenShell", 2, 3, 1);
+    Item blueShell = new Item("blueShell", 1, 4, 2);
+    Item hammer = new Item("hammer", 5, 5, 2);
+    //initalizing all powerUps
+    PowerUp oneUp = new PowerUp("oneUp");
+    PowerUp superStar = new PowerUp("superStar");
+    PowerUp superMushroom = new PowerUp("superMushroom");
+    PowerUp bulletBill = new PowerUp("bulletBill");
+    PowerUp bobomb = new PowerUp("bobomb");
     //spawns set
     Set<Location> spawns = new HashSet();
 
     //item array to pick random one from
-    ArrayList<Item> items = new ArrayList<Item>();
+    ArrayList<Item> allItems = new ArrayList<Item>();
+
+    //powerup array to pick random one from
+    ArrayList<PowerUp> allPowerUps = new ArrayList<PowerUp>();
+
     // inital list of random locations
     // sorted later
     ArrayList<Location> locations = new ArrayList<Location>();
@@ -54,12 +64,33 @@ public class Map {
 
     // what locations can be connected to
     ArrayList<Integer> avilableLocations = new ArrayList<Integer>();
+
     public void setSpawns(){
         for (int i = 0; i < 3; i++){
-            spawns.add(getRandomLocation());
+            Location currentIterationLocation = getRandomLocation();
+            while (!spawns.add(currentIterationLocation)){
+                currentIterationLocation = getRandomLocation();
+            }
+
         }
 
     }
+
+    public void setItemsAndPowerUps(){
+        for (Location l : locations){
+            int chance = getRandomInteger(1,10);
+            if (chance <= 4){
+                l.addItem(allItems.get(getRandomInteger(0,2)));
+            }
+            else if (chance > 4 && chance <= 9){
+                l.addPowerUp(allPowerUps.get(getRandomInteger(0,4)));
+            }
+            else if (chance == 10){
+
+            }
+        }
+    }
+
 /*
 function to connect everything
 dont like having to check for avilableLocations empty twice
@@ -121,11 +152,17 @@ actually its pretty bad since the map looks pretty similar each time
         for (int i = 0; i < 20; i++) {
             avilableLocations.add(i);
         }
-        //powerUps array
+        //items array
+        allItems.add(hammer);
+        allItems.add(blueShell);
+        allItems.add(greenShell);
 
-        items.add(bobomb);
-        items.add(blueShell);
-        items.add(greenShell);
+        //powerup array
+        allPowerUps.add(oneUp);
+        allPowerUps.add(superMushroom);
+        allPowerUps.add(superStar);
+        allPowerUps.add(bulletBill);
+        allPowerUps.add(bobomb);
 
 
 
