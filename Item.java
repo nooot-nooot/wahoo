@@ -6,8 +6,12 @@ public class Item {
         int multiplier = upper - (lower - 1);
         return (int) (Math.floor(Math.random() * multiplier)) + lower;
     }
+
     public String getName(){
         return name;
+    }
+    public int getDamage(){
+        return damage;
     }
     public Item(String varName, int varNumRolls, int varNumHit, int varDamage){
         name = varName;

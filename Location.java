@@ -9,8 +9,8 @@ public class Location{
     private boolean space = true;
     private boolean marioPresence = false;
     ArrayList<Location> connections = new ArrayList<Location>();
-    Item item = new Item(null, 0, 0, 0);
-    PowerUp powerUp = new PowerUp(null);
+    Item item = null;
+    PowerUp powerUp = null;
 
 
     /*
@@ -21,10 +21,10 @@ public class Location{
     }
     */
 
-    public Item SearchItem(){
+    public Item searchItem(){
         return item;
     }
-    public PowerUp SearchPowerUp(int type){
+    public PowerUp searchPowerUp(){
         return powerUp;
     }
     public void addItem(Item i){
@@ -39,6 +39,8 @@ public class Location{
     public boolean getPresence(){
         return marioPresence;
     }
+    public int getNumGoomba(){ return numKoopa;}
+    public int getNumKoopa(){ return numGoomba;}
     public int getDistance(){
         int distance = 0;
         ArrayList<Location> currentIteration = new ArrayList<Location>();
@@ -81,6 +83,12 @@ public class Location{
 
 
     }
+    public void hitKoopa(int hits){
+        numKoopa -= hits;
+    }
+    public void hitGoomba(int hits){
+        numGoomba -= hits;
+    }
     public Location getClosest(){
         ArrayList<Integer> distances = new ArrayList<Integer>();
         for (Location l : connections){
@@ -105,6 +113,10 @@ public class Location{
             numGoomba -= numKoopa;
         }
 
+    }
+    public void bobomb(){
+        numKoopa = 0;
+        numGoomba = 0;
     }
     public int getNumEnemies(){
         return numKoopa + numGoomba;

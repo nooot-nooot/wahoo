@@ -64,7 +64,14 @@ public class Map {
 
     // what locations can be connected to
     ArrayList<Integer> avilableLocations = new ArrayList<Integer>();
+    public void setObjectives(){
+        int chance = getRandomInteger(0,2);
+        if (chance == 0){
+            System.out.println("Drive out Bowser's army! Knockout " + getRandomInteger(10,20) + " enemies.");
 
+        }
+
+    }
     public void setSpawns(){
         for (int i = 0; i < 3; i++){
             Location currentIterationLocation = getRandomLocation();

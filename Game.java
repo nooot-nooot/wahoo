@@ -25,6 +25,7 @@ public class Game {
     }
     public void start(){
         map.setSpawns();
+        map.setItemsAndPowerUps();
         for(Location l : map.spawns){
             System.out.println("spawn:" +l.getName());
             l.spawn();
@@ -70,7 +71,7 @@ public class Game {
 
     }
     public void marioTurn(){
-
+        mario.resetMoves();
         System.out.println("-----------------");
         while(true) {
             if (mario.getMoves() <= 0){
@@ -84,13 +85,16 @@ public class Game {
             System.out.println("1:Move \n2:Search \n3:Use item\n4:Attack");
             action = getSelection();
             if (action == 1) {
-                if (mario.getCurrentLocation().getNumEnemies() > 0) {
-                    System.out.println("There are enemies around, you can not move");
-                } else {
-                    mario.move();
-
-                }
-
+                mario.move();
+            }
+            else if (action == 2){
+                mario.search();
+            }
+            else if (action == 3){
+                mario.useItem();
+            }
+            else if (action == 4){
+                mario.attack();
             }
             mario.decreaseMoves();
         }
@@ -99,9 +103,11 @@ public class Game {
     public void enemyTurn(){
         (mario.getCurrentLocation()).setPresence(true);
         System.out.println("mario is at " + mario.getCurrentLocation().getName());
-        for (int i = 0; i < mario.getCurrentLocation().getNumEnemies(); i++){
-            if(getRandomInteger(0,10) <= 8){
-                mario.wound();
+        if (mario.superStar == false) {
+            for (int i = 0; i < mario.getCurrentLocation().getNumEnemies(); i++) {
+                if (getRandomInteger(0, 10) <= 8) {
+                    mario.wound();
+                }
             }
         }
         for (Location l : map.locations){
