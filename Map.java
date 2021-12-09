@@ -5,14 +5,7 @@ import java.util.*;
 
 
 public class Map {
-    public static int getRandomInteger(int lower, int upper) {
-        int multiplier = upper - (lower - 1);
-        return (int) (Math.floor(Math.random() * multiplier)) + lower;
-    }
 
-    // tiering sytem
-    // as the player moves up the tiers, an indicator shows them getting closer to
-    // bowser
     // initalizing all allLocation
     Location NewDonkCity = new Location("NewDonkCity");
     Location WoodedKingdom = new Location("WoodedKingdom");
@@ -34,10 +27,18 @@ public class Map {
     Location BowsersCastle = new Location("BowsersCastle");
     Location Bubblaine = new Location("Bubblaine");
     Location Bonneton = new Location("Bonneton");
+    Location Exit = new Location("Exit");
     //initalizing all items
     Item greenShell = new Item("greenShell", 2, 3, 1);
     Item blueShell = new Item("blueShell", 1, 4, 2);
     Item hammer = new Item("hammer", 5, 5, 2);
+    /*
+    Buffed version:
+    Item greenShell = new Item("greenShell", 5, 3, 1);
+    Item blueShell = new Item("blueShell", 6, 4, 2);
+    Item hammer = new Item("hammer", 10, 5, 2);
+
+     */
     //initalizing all powerUps
     PowerUp oneUp = new PowerUp("oneUp");
     PowerUp superStar = new PowerUp("superStar");
@@ -64,12 +65,14 @@ public class Map {
 
     // what locations can be connected to
     ArrayList<Integer> avilableLocations = new ArrayList<Integer>();
-    public void setObjectives(){
-        int chance = getRandomInteger(0,2);
-        if (chance == 0){
-            System.out.println("Drive out Bowser's army! Knockout " + getRandomInteger(10,20) + " enemies.");
 
-        }
+    public void setPeachLocation(){
+        getRandomLocation().setPeachPresent();
+    }
+    public void setExit(){
+        Location exitLocation = getRandomLocation();
+        exitLocation.addConnection(Exit);
+        exitLocation.setAsExit();
 
     }
     public void setSpawns(){
@@ -85,12 +88,13 @@ public class Map {
 
     public void setItemsAndPowerUps(){
         for (Location l : locations){
-            int chance = getRandomInteger(1,10);
+            int chance = Game.getRandomInteger(1,10);
             if (chance <= 4){
-                l.addItem(allItems.get(getRandomInteger(0,2)));
+                l.setItem(allItems.get(Game.getRandomInteger(0,2)));
             }
             else if (chance > 4 && chance <= 9){
-                l.addPowerUp(allPowerUps.get(getRandomInteger(0,4)));
+                l.setPowerUp(allPowerUps.get(Game.getRandomInteger(0,4)));
+
             }
             else if (chance == 10){
 
@@ -105,9 +109,10 @@ otherwise not bad
 actually its pretty bad since the map looks pretty similar each time
 */
 
-    int x = getRandomInteger(1, 3);
+    int x;
     public void connectAll() {
-        int firstLocation = getRandomInteger(0, 19);
+        x = Game.getRandomInteger(1, 3);
+        int firstLocation = Game.getRandomInteger(0, 19);
         avilableLocations.remove(firstLocation);
         connect(locations.get(firstLocation));
         // dont need the break here, can just have the break in connect, but need it to
@@ -118,37 +123,28 @@ actually its pretty bad since the map looks pretty similar each time
             if (avilableLocations.size() == 0 || avilableLocations == null) {
                 break;
             }
-            x = getRandomInteger(1, 2);
+            x = Game.getRandomInteger(1, 2);
             connect(locations.get(currentIteration.get(i)));
             i++;
         }
     }
     public void connect(Location l) {
+
         for (int i = 0; i < x; i++) {
             if (avilableLocations.size() == 0) {
                 return;
             }
-            Location conectee = locations.get(avilableLocations.get(getRandomInteger(0, avilableLocations.size() - 1))); // yep
+            Location conectee = locations.get(avilableLocations.get(Game.getRandomInteger(0, avilableLocations.size() - 1))); // yep
             l.addConnection(conectee);
             conectee.addConnection(l);
             currentIteration.add(locations.indexOf(conectee));
             avilableLocations.remove(avilableLocations.indexOf(locations.indexOf(conectee)));
         }
-    /*
-    l.printConnections();
-    for (int i : avilableLocations) {
-      System.out.print(i + " ");
-    }
-    System.out.println();
-    */
-
 
     }
-
-
 
     public Location getRandomLocation(){
-        return (locations.get(getRandomInteger(0,19)));
+        return (locations.get(Game.getRandomInteger(0,19)));
 
     }
     public void shuffleLocations() {
@@ -156,6 +152,7 @@ actually its pretty bad since the map looks pretty similar each time
     }
 
     public Map() {
+        //avilable locations array
         for (int i = 0; i < 20; i++) {
             avilableLocations.add(i);
         }
@@ -170,9 +167,6 @@ actually its pretty bad since the map looks pretty similar each time
         allPowerUps.add(superStar);
         allPowerUps.add(bulletBill);
         allPowerUps.add(bobomb);
-
-
-
 
         // locations array
         locations.add(NewDonkCity);
@@ -197,50 +191,5 @@ actually its pretty bad since the map looks pretty similar each time
         locations.add(Bonneton);
     }
 
-    /*
-     * int finalConnections[][] = new int[20][20]; public void declareInitalArray(){
-     * for(int i = 0; i < 20; i++){ for(int j = 0; j < 20; j++){
-     * finalConnections[i][j] = 0; } } }
-     *
-     *
-     *
-     * /* for (Location l : locations){ int index = getRandomInteger(0,19); Location
-     * j = locations.get(index); while (locations.indexOf(l) == index){ index =
-     * getRandomInteger(0,19); j = locations.get(index); }
-     *
-     * if (j.getSpace() > 0){ j.addConnection(l); l.addConnection(j);
-     *
-     *
-     * } }
-     *
-     *
-     */
-
-    /*
-     * for (Location l : locations){ for (Location l2 : locations){ if(l2.getSpace()
-     * > 0){ l.addConnection(l2); l2.addConnection(l);
-     *
-     * } if(l.getSpace() <= 0){ break; } } System.out.println("yep"); }
-     */
-
-    /*
-     * for(Location i : locations){ for(Location j : locations){ while
-     * (i.getSpace()){ if(j.getSpace() && (locations.indexOf(i) !=
-     * locations.indexOf(j))){ j.addConnection(i); i.addConnection(j);
-     * j.updateSpace(); i.updateSpace(); } }
-     *
-     * break; } }
-     */
-    /*
-     * public void connect(){
-     *
-     *
-     *
-     *
-     *
-     * int randomInt = getRandomInteger(1,3); int row = 0; int x = 0; for (int i =
-     * 0; i < randomInt; i++){ finalConnections[row][x] = 1;
-     * finalConnections[x][row] = 1; x++; row++; } }
-     */
 
 }
